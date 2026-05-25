@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, type CSSProperties } from 'react'
 import { ArrowUpRight, GitBranch, MapPin, Menu, Radio, Sparkles, X } from 'lucide-react'
 import './App.css'
+import { BookChapters } from './components/BookChapters'
 import { CuriosityScene } from './CuriosityScene'
 import { profile, projects, type Project } from './projects'
 
@@ -38,7 +39,7 @@ function ProjectLinks({ project }: { project: Project }) {
   )
 }
 
-export default function App() {
+function LegacyPortfolio() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [menuOpen, setMenuOpen] = useState(false)
   const [introDone, setIntroDone] = useState(false)
@@ -224,4 +225,14 @@ export default function App() {
       </footer>
     </div>
   )
+}
+
+export default function App() {
+  const normalizedPath = window.location.pathname.replace(/\/+$/, '')
+
+  if (normalizedPath === '/v1') {
+    return <LegacyPortfolio />
+  }
+
+  return <BookChapters />
 }
