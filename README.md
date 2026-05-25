@@ -2,6 +2,8 @@
 
 Motion-first personal portfolio inspired by KOKUYO's "Curiosity is Life" experience, rebuilt as an original React + Three.js site for Rana Harshraj Singh.
 
+Live: https://harsh-portfolio-one-swart.vercel.app
+
 ## Featured Work
 
 - Orange Memory Fabric
