@@ -1,6 +1,6 @@
 # Rana Harshraj Singh / Portfolio
 
-Dark, technical portfolio for Rana Harshraj Singh: AI infrastructure, agent memory, orchestration, and speech pipeline work.
+Dark, technical portfolio for Rana Harshraj Singh: AI infrastructure, agent memory, orchestration, speech pipeline work, and an embedded Saarthi voice guide.
 
 Live: https://harsh-portfolio-one-swart.vercel.app
 
@@ -8,7 +8,7 @@ Live: https://harsh-portfolio-one-swart.vercel.app
 
 - Orange
 - VoiceBots
-- Sarathi
+- Saarthi
 - NextRead
 - MatExprint
 
@@ -17,6 +17,12 @@ Live: https://harsh-portfolio-one-swart.vercel.app
 ```bash
 npm install
 npm run dev
+```
+
+The site embeds Saarthi from `https://saarthi-kappa-flame.vercel.app` by default. Override it with:
+
+```bash
+VITE_SAARTHI_ORIGIN=https://your-saarthi-domain.com
 ```
 
 ## Verification

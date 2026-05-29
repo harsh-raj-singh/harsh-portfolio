@@ -27,6 +27,10 @@ const heroPhrases = [
 ]
 
 const techTicker = ['Neo4j', 'ChromaDB', 'PostgreSQL', 'Go', 'Python', 'LangChain', 'Whisper', 'FastAPI']
+const saarthiOrigin = (import.meta.env.VITE_SAARTHI_ORIGIN || 'https://saarthi-kappa-flame.vercel.app').replace(
+  /\/$/,
+  '',
+)
 
 const beliefs = [
   'Memory is the missing primitive in most AI systems.',
@@ -37,48 +41,48 @@ const beliefs = [
 
 const experience = [
   {
-    company: 'Current role - Bangalore',
-    role: 'AI/Data Engineer',
-    dates: 'Current',
+    company: 'Kisetsu Saison Finance Ltd',
+    role: 'Data Scientist',
+    dates: 'Jun 2025 - Present',
     bullets: [
-      'Building data and AI infrastructure for production workflows where retrieval, latency, and reliability matter.',
-      'Designing agent-facing systems around durable state, observability, and controlled automation.',
-      'Working close to the metal of applied AI: data contracts, pipeline reliability, and model integration.',
+      'Built production ML systems across voice agents, address intelligence, and KYC automation serving 2 million+ customers.',
+      'Engineered an end-to-end speech pipeline for upsell and EMI reminder workflows, reducing annual operating cost by Rs 2.6M with sub-800ms latency.',
+      'Fine-tuned BERT address NER to 94.2% F1 and orchestrated OCR-based KYC verification for 80K+ documents/month at 96% accuracy.',
     ],
-    stack: ['Python', 'PostgreSQL', 'LLM APIs', 'Docker', 'Linux'],
+    stack: ['Speech AI', 'BERT', 'OCR', 'Python', 'ML systems'],
   },
   {
-    company: 'Kisetsu Saison',
-    role: 'Speech pipeline work',
-    dates: 'Past',
+    company: '@Commerce Robotics, Japan',
+    role: 'AI Development Intern - Meetgram',
+    dates: 'May 2024 - Jul 2024',
     bullets: [
-      'Built low-latency voice and collections automation flows for outbound financial operations.',
-      'Optimized the speech loop across ASR, reasoning, TTS, and telephony handoff.',
-      'Reduced operating cost through task-specific automation and tighter pipeline orchestration.',
+      'Engineered Meetgram, an AI meeting management tool with real-time transcription and translation for SaaS teams.',
+      'Built a duplex STT architecture using Whisper Tiny for streaming and Whisper Large for batch processing, supporting 1,200+ concurrent sessions.',
+      'Fine-tuned Whisper on 12K+ medical transcripts and reduced CPU overhead through async processing and GPU offload.',
     ],
-    stack: ['ASR', 'TTS', 'Python', 'Telephony', 'Latency engineering'],
+    stack: ['Whisper', 'Streaming STT', 'GPU offload', 'Translation', 'SaaS'],
   },
   {
-    company: 'Meetgram',
-    role: 'Speech / voice agent work',
-    dates: 'Past',
+    company: 'AGC Group',
+    role: 'AI Engineer Intern',
+    dates: 'Sep 2024 - Nov 2024',
     bullets: [
-      'Shipped voice-agent workflows that turned raw speech into structured product actions.',
-      'Worked on real-time conversation flows, transcription reliability, and agent handoff behavior.',
-      'Built practical speech tooling where latency and transcript quality controlled the UX.',
+      'Architected a multilingual document translation pipeline for cross-language business communication.',
+      'Reduced translation turnaround by 90% and improved extraction accuracy from 85% to 97% with custom OCR.',
+      'Built layout preservation logic that maintained 98% visual fidelity across translated documents.',
     ],
-    stack: ['Whisper', 'Speech AI', 'FastAPI', 'Agent UX'],
+    stack: ['OCR', 'Document AI', 'Translation', 'Layout analysis', 'Python'],
   },
   {
-    company: 'South Park Commons',
-    role: 'Orange / Memory Fabric',
-    dates: '2024',
+    company: 'Predixion AI',
+    role: 'AI Intern',
+    dates: 'Mar 2024 - Apr 2024',
     bullets: [
-      'Built a persistent memory layer for LLM agents using graph, vector, and relational storage.',
-      'Extracted structured knowledge from debugging sessions through LLM-driven analysis.',
-      'Recognized as a top-5 infrastructure team project.',
+      'Built NLP pipelines with open-source LLMs to extract structured insights from Indian financial reports.',
+      'Focused on images, graphs, and tabular signals inside unstructured reports.',
+      'Integrated OCR to process reports and reach 92% extraction accuracy.',
     ],
-    stack: ['Neo4j', 'ChromaDB', 'PostgreSQL', 'Agents', 'Memory'],
+    stack: ['Open-source LLMs', 'OCR', 'NLP', 'Financial reports', 'Computer vision'],
   },
 ]
 
@@ -126,15 +130,17 @@ const projects: Project[] = [
     featured: true,
   },
   {
-    name: 'Sarathi',
-    kicker: 'Voice UX for visual assistance',
-    description: 'A drop-in website assistant that calls users and explains confusing UI with page context.',
-    problem: 'Users get stuck in product UI, but support teams rarely know what the user is seeing.',
-    solution: 'Capture viewport context on demand, redact sensitive fields, and explain the screen over voice.',
-    outcome: 'A phone-first support loop that keeps secrets server-side and avoids continuous screen streaming.',
-    stack: ['Next.js', 'ElevenLabs', 'OpenAI Vision', 'TypeScript'],
+    name: 'Saarthi',
+    kicker: 'In-page voice guide for websites',
+    description:
+      'An embeddable voice assistant that lets users ask what something on a page means and hear a clear answer without leaving the site.',
+    problem: 'Users get stuck inside unfamiliar product UI, especially when page language or controls are unclear.',
+    solution: 'Embed a privacy-minded widget that records only on press, sends safe page context, and replies in English, Hindi, or Hinglish.',
+    outcome: 'A live voice guide on this portfolio powered by OpenAI transcription, reasoning, and text-to-speech.',
+    stack: ['Next.js', 'OpenAI Speech', 'TypeScript', 'Vercel'],
     filters: ['Voice/Speech', 'Agent Infra'],
     github: 'https://github.com/harsh-raj-singh/saarthi',
+    live: saarthiOrigin,
   },
   {
     name: 'NextRead',
@@ -244,6 +250,24 @@ function useRevealOnScroll() {
     elements.forEach((element) => observer.observe(element))
     return () => observer.disconnect()
   }, [])
+}
+
+function SaarthiAgent() {
+  useEffect(() => {
+    if (document.querySelector('script[data-saarthi-agent="portfolio"]')) {
+      return
+    }
+
+    const script = document.createElement('script')
+    script.src = `${saarthiOrigin}/widget.js`
+    script.async = true
+    script.dataset.saarthiAgent = 'portfolio'
+    script.dataset.siteId = 'harsh-portfolio'
+    script.dataset.apiBase = saarthiOrigin
+    document.body.appendChild(script)
+  }, [])
+
+  return null
 }
 
 function SectionLabel({ index, title }: { index: string; title: string }) {
@@ -589,6 +613,7 @@ export default function App() {
           memory / agents / speech
         </span>
       </footer>
+      <SaarthiAgent />
     </div>
   )
 }
