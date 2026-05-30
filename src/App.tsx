@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   ArrowRight,
   Cpu,
@@ -52,7 +52,7 @@ const experience = [
     stack: ['Speech AI', 'BERT', 'OCR', 'Python', 'ML systems'],
   },
   {
-    company: '@Commerce Robotics, Japan',
+    company: 'Commerce Robotics, Japan',
     role: 'AI Development Intern - Meetgram',
     dates: 'May 2024 - Jul 2024',
     bullets: [
@@ -99,12 +99,13 @@ type Project = {
   filters: string[]
   github?: string
   live?: string
+  post?: string
   featured?: boolean
 }
 
 const projects: Project[] = [
   {
-    name: 'Orange / Memory Fabric',
+    name: 'Orange',
     kicker: 'Persistent memory for agentic engineering',
     description:
       'A persistent memory layer for LLM agents using Neo4j, ChromaDB, and PostgreSQL. Extracts structured knowledge from debugging sessions via LLM agents. Recognized by South Park Commons.',
@@ -115,10 +116,11 @@ const projects: Project[] = [
     filters: ['Agent Infra', 'Memory Systems', 'Distributed Systems'],
     github: 'https://github.com/harsh-raj-singh/orange',
     live: 'https://site-sage-eta-18.vercel.app',
+    post: 'https://www.linkedin.com/posts/ranaharshrajsingh_incredibly-proud-to-share-that-orange1-was-activity-7433318778253352960-Fu_u?utm_source=share&utm_medium=member_desktop&rcm=ACoAADj-Q4cBrlCzPYb76OShoTnGE2s7QlWbSJI',
     featured: true,
   },
   {
-    name: 'Speech Pipeline System',
+    name: 'Speech Pipeline',
     kicker: 'Real-time voice automation',
     description:
       'A production speech loop for customer calls and operational workflows, tuned across recognition, reasoning, synthesis, and telephony handoff.',
@@ -170,19 +172,22 @@ const projects: Project[] = [
 
 const writing = [
   {
-    title: 'Human expertise still supervises AI',
+    title: "Quantization's Hidden Cost: CPU-GPU Bottleneck and Batching Tradeoffs",
     date: 'LinkedIn note',
-    teaser: 'The .apply vs vectorized operations anecdote: why knowing the substrate still matters.',
+    teaser: 'What profiling Whisper reveals about quantization, CPU-GPU transfer, and batching tradeoffs.',
+    url: 'https://www.linkedin.com/posts/ranaharshrajsingh_i-spent-valentines-day-profiling-whisper-activity-7428423682819104768-B2RQ?utm_source=share&utm_medium=member_desktop&rcm=ACoAADj-Q4cBrlCzPYb76OShoTnGE2s7QlWbSJI',
   },
   {
-    title: 'Netflix VOID, builder tools, and product memory',
-    date: 'Essay seed',
-    teaser: 'Notes on how evaluation loops and product context shape AI systems that survive contact with users.',
+    title: 'Arcee Trinity Large Technical Report Summary',
+    date: 'LinkedIn note',
+    teaser: 'Notes on Arcee Trinity Large and the system choices behind efficient open model design.',
+    url: 'https://www.linkedin.com/posts/ranaharshrajsingh_research-paper-3-arcee-trinity-large-technical-activity-7447444356220948480-1e__?utm_source=share&utm_medium=member_desktop&rcm=ACoAADj-Q4cBrlCzPYb76OShoTnGE2s7QlWbSJI',
   },
   {
-    title: 'Google Builder Day Bengaluru field notes',
-    date: 'Event note',
-    teaser: 'What local builder energy says about the next layer of AI infrastructure.',
+    title: 'Transformers for Audio: Speech-Native AI Breakthrough',
+    date: 'LinkedIn note',
+    teaser: 'Why audio-native transformer architectures matter for the next generation of speech systems.',
+    url: 'https://www.linkedin.com/posts/ranaharshrajsingh_ive-always-wondered-what-happens-if-we-activity-7419790526926888960-zgSj?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAADj-Q4cBrlCzPYb76OShoTnGE2s7QlWbSJI',
   },
 ]
 
@@ -306,6 +311,12 @@ function ProjectLinks({ project }: { project: Project }) {
           Live
         </a>
       ) : null}
+      {project.post ? (
+        <a href={project.post} target="_blank" rel="noreferrer" aria-label={`${project.name} LinkedIn post`}>
+          <ExternalLink size={16} aria-hidden="true" />
+          LinkedIn
+        </a>
+      ) : null}
     </div>
   )
 }
@@ -408,7 +419,7 @@ export default function App() {
                 frameworks.
               </p>
               <p>
-                Previously at Kisetsu Saison and Meetgram. Recognized by South Park Commons as a
+                Previously at Kisetsu Saison and Commerce Robotics. Recognized by South Park Commons as a
                 top-5 infrastructure team project.
               </p>
             </div>
@@ -449,7 +460,7 @@ export default function App() {
         <section className="panel-section reveal" id="projects">
           <SectionLabel index="03" title="projects" />
           <div className="section-heading">
-            <h2>Systems that make agents useful after the demo.</h2>
+            <h2>Systems that make agents useful.</h2>
             <p>
               Memory, orchestration, speech loops, and small production surfaces where state and
               latency decide whether the system survives.
@@ -534,7 +545,7 @@ export default function App() {
           </div>
           <div className="writing-grid">
             {writing.map((post) => (
-              <a className="writing-card" href={profile.linkedin} key={post.title} target="_blank" rel="noreferrer">
+              <a className="writing-card" href={post.url} key={post.title} target="_blank" rel="noreferrer">
                 <span>{post.date}</span>
                 <h3>{post.title}</h3>
                 <p>{post.teaser}</p>
@@ -556,21 +567,6 @@ export default function App() {
                 <h3>{group}</h3>
                 <Tags items={items} />
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="proof-section reveal" id="recognition">
-          <div>
-            <p>South Park Commons</p>
-            <h2>Top 5 Infrastructure Team · 2024</h2>
-          </div>
-          <p>
-            Exploring AI infra and distributed systems for autonomous agent applications.
-          </p>
-          <div className="signal-row" aria-hidden="true">
-            {Array.from({ length: 24 }).map((_, index) => (
-              <span key={index} style={{ '--level': String((index % 7) + 1) } as CSSProperties} />
             ))}
           </div>
         </section>

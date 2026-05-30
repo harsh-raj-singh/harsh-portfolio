@@ -225,7 +225,6 @@ main {
 .project-card,
 .writing-card,
 .stack-card,
-.proof-section,
 .contact-panel {
   border: 1px solid var(--line);
   background:
@@ -306,7 +305,6 @@ main {
 }
 
 .panel-section,
-.proof-section,
 .contact-section {
   padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 4vw, 4rem);
 }
@@ -337,7 +335,6 @@ main {
 }
 
 .section-heading h2,
-.proof-section h2,
 .contact-panel h2 {
   margin: 0;
   color: var(--text);
@@ -346,8 +343,7 @@ main {
   line-height: 0.98;
 }
 
-.section-heading p,
-.proof-section > p {
+.section-heading p {
   margin: 0;
   color: var(--muted);
   font-size: 1rem;
@@ -659,41 +655,6 @@ code {
   font-size: 1rem;
 }
 
-.proof-section {
-  display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 0.75fr) minmax(12rem, 0.45fr);
-  align-items: center;
-  gap: 1.5rem;
-  margin: 0 clamp(1rem, 4vw, 4rem) clamp(4rem, 8vw, 7rem);
-  padding: clamp(1rem, 2vw, 1.5rem);
-}
-
-.proof-section p {
-  margin: 0;
-}
-
-.proof-section div > p {
-  color: var(--accent);
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  font-weight: 850;
-  text-transform: uppercase;
-}
-
-.signal-row {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  align-items: end;
-  gap: 0.22rem;
-  height: 4.5rem;
-}
-
-.signal-row span {
-  height: calc(var(--level) * 0.45rem);
-  border: 1px solid rgba(245, 166, 35, 0.18);
-  background: rgba(245, 166, 35, 0.1);
-}
-
 .contact-section {
   display: grid;
   place-items: center;
@@ -762,8 +723,7 @@ code {
 
 @media (max-width: 1100px) {
   .hero-grid,
-  .about-grid,
-  .proof-section {
+  .about-grid {
     grid-template-columns: 1fr;
   }
 
@@ -827,13 +787,8 @@ code {
   }
 
   .panel-section,
-  .proof-section,
   .contact-section {
     padding-block: 3.2rem;
-  }
-
-  .proof-section {
-    margin-bottom: 3.2rem;
   }
 
   .button,
