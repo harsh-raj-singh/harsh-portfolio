@@ -1,25 +1,28 @@
 # Rana Harshraj Singh / Portfolio
 
-Motion-first personal portfolio inspired by KOKUYO's "Curiosity is Life" experience, rebuilt as an original React + Three.js site for Rana Harshraj Singh.
+Dark, technical portfolio for Rana Harshraj Singh: AI infrastructure, agent memory, orchestration, speech pipeline work, and an embedded Saarthi voice guide.
 
 Live: https://harsh-portfolio-one-swart.vercel.app
 
 ## Featured Work
 
-- Orange Memory Fabric
-- Collections Voice Bots
+- Orange
+- VoiceBots
 - Saarthi
-- Next Read
-- SwiftMath Sprint
-- Pocket TTS Studio
-- CMoE From Scratch
-- LoRA From Scratch
+- NextRead
+- MatExprint
 
 ## Local Development
 
 ```bash
 npm install
 npm run dev
+```
+
+The site embeds Saarthi from `https://saarthi-kappa-flame.vercel.app` by default. Override it with:
+
+```bash
+VITE_SAARTHI_ORIGIN=https://your-saarthi-domain.com
 ```
 
 ## Verification
