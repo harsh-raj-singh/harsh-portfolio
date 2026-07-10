@@ -1,239 +1,152 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect } from 'react'
 import {
-  ArrowRight,
+  ArrowDown,
+  ArrowUpRight,
+  Braces,
+  CodeXml,
   Cpu,
-  ExternalLink,
-  GitBranch,
+  Mail,
   MapPin,
   Mic2,
   Network,
-  Terminal,
 } from 'lucide-react'
 import './App.css'
 
 const profile = {
   name: 'Rana Harshraj Singh',
-  location: 'Bangalore',
+  location: 'Bengaluru, India',
   email: 'ranaharshraj3@gmail.com',
   github: 'https://github.com/harsh-raj-singh',
   linkedin: 'https://www.linkedin.com/in/ranaharshrajsingh/',
-  twitter: 'https://x.com/ranaharshraj7',
 }
 
-const heroPhrases = [
-  'Building memory into machines.',
-  'Orchestrating agents that think.',
-  'Infrastructure for the post-LLM stack.',
-]
-
-const techTicker = ['Neo4j', 'ChromaDB', 'PostgreSQL', 'Go', 'Python', 'LangChain', 'Whisper', 'FastAPI']
 const saarthiOrigin = (import.meta.env.VITE_SAARTHI_ORIGIN || 'https://saarthi-kappa-flame.vercel.app').replace(
   /\/$/,
   '',
 )
 
-const beliefs = [
-  'Memory is the missing primitive in most AI systems.',
-  'Agents fail at the infrastructure level, not the model level.',
-  'The best systems are boring in prod and interesting in design.',
-  'Distributed thinking: build for eventual consistency, not perfection.',
-]
-
-const experience = [
-  {
-    company: 'Kisetsu Saison Finance Ltd',
-    role: 'Data Scientist',
-    dates: 'Jun 2025 - Present',
-    bullets: [
-      'Built production ML systems across voice agents, address intelligence, and KYC automation serving 2 million+ customers.',
-      'Engineered an end-to-end speech pipeline for upsell and EMI reminder workflows, reducing annual operating cost by Rs 2.6M with sub-800ms latency.',
-      'Fine-tuned BERT address NER to 94.2% F1 and orchestrated OCR-based KYC verification for 80K+ documents/month at 96% accuracy.',
-    ],
-    stack: ['Speech AI', 'BERT', 'OCR', 'Python', 'ML systems'],
-  },
-  {
-    company: 'Commerce Robotics, Japan',
-    role: 'AI Development Intern - Meetgram',
-    dates: 'May 2024 - Jul 2024',
-    bullets: [
-      'Engineered Meetgram, an AI meeting management tool with real-time transcription and translation for SaaS teams.',
-      'Built a duplex STT architecture using Whisper Tiny for streaming and Whisper Large for batch processing, supporting 1,200+ concurrent sessions.',
-      'Fine-tuned Whisper on 12K+ medical transcripts and reduced CPU overhead through async processing and GPU offload.',
-    ],
-    stack: ['Whisper', 'Streaming STT', 'GPU offload', 'Translation', 'SaaS'],
-  },
-  {
-    company: 'AGC Group',
-    role: 'AI Engineer Intern',
-    dates: 'Sep 2024 - Nov 2024',
-    bullets: [
-      'Architected a multilingual document translation pipeline for cross-language business communication.',
-      'Reduced translation turnaround by 90% and improved extraction accuracy from 85% to 97% with custom OCR.',
-      'Built layout preservation logic that maintained 98% visual fidelity across translated documents.',
-    ],
-    stack: ['OCR', 'Document AI', 'Translation', 'Layout analysis', 'Python'],
-  },
-  {
-    company: 'Predixion AI',
-    role: 'AI Intern',
-    dates: 'Mar 2024 - Apr 2024',
-    bullets: [
-      'Built NLP pipelines with open-source LLMs to extract structured insights from Indian financial reports.',
-      'Focused on images, graphs, and tabular signals inside unstructured reports.',
-      'Integrated OCR to process reports and reach 92% extraction accuracy.',
-    ],
-    stack: ['Open-source LLMs', 'OCR', 'NLP', 'Financial reports', 'Computer vision'],
-  },
-]
-
-const filters = ['All', 'Agent Infra', 'Voice/Speech', 'Memory Systems', 'Distributed Systems']
+type ProjectLink = {
+  label: string
+  href: string
+}
 
 type Project = {
+  number: string
+  category: string
   name: string
-  kicker: string
+  headline: string
   description: string
-  problem: string
-  solution: string
-  outcome: string
+  impact: string[]
   stack: string[]
-  filters: string[]
-  github?: string
-  live?: string
-  post?: string
-  featured?: boolean
+  links: ProjectLink[]
+  tone: 'blue' | 'lime' | 'violet'
 }
 
 const projects: Project[] = [
   {
+    number: '01',
+    category: 'Agent memory',
     name: 'Orange',
-    kicker: 'Persistent memory for agentic engineering',
+    headline: 'Memory that survives the session.',
     description:
-      'A persistent memory layer for LLM agents using Neo4j, ChromaDB, and PostgreSQL. Extracts structured knowledge from debugging sessions via LLM agents. Recognized by South Park Commons.',
-    problem: 'Coding agents start each session blind: debugging history, architecture decisions, and prior fixes disappear between runs.',
-    solution: 'Persist sessions across PostgreSQL, Neo4j, and ChromaDB; use LLM agents to extract durable insights and expose scoped recall through MCP.',
-    outcome: 'Agent memory with private user scope, shared org scope, and MCP recall tools for retrieving prior engineering context.',
-    stack: ['Neo4j', 'ChromaDB', 'PostgreSQL', 'FastAPI', 'Next.js', 'MCP'],
-    filters: ['Agent Infra', 'Memory Systems', 'Distributed Systems'],
-    github: 'https://github.com/harsh-raj-singh/orange',
-    live: 'https://site-sage-eta-18.vercel.app',
-    post: 'https://www.linkedin.com/posts/ranaharshrajsingh_incredibly-proud-to-share-that-orange1-was-activity-7433318778253352960-Fu_u?utm_source=share&utm_medium=member_desktop&rcm=ACoAADj-Q4cBrlCzPYb76OShoTnGE2s7QlWbSJI',
-    featured: true,
+      'A persistent memory layer that turns debugging sessions into reusable engineering context across PostgreSQL, Neo4j, and ChromaDB.',
+    impact: ['Top 5 infra project at South Park Commons', 'Private + organisation-scoped MCP recall'],
+    stack: ['Neo4j', 'ChromaDB', 'PostgreSQL', 'FastAPI', 'MCP'],
+    links: [
+      { label: 'GitHub', href: 'https://github.com/harsh-raj-singh/orange' },
+      { label: 'Live', href: 'https://site-sage-eta-18.vercel.app' },
+    ],
+    tone: 'blue',
   },
   {
-    name: 'Speech Pipeline',
-    kicker: 'Real-time voice automation',
+    number: '02',
+    category: 'Production speech',
+    name: 'Voice pipeline',
+    headline: 'Voice AI at production speed.',
     description:
-      'An in-house voice agent pipeline for automated EMI reminders and customer upselling, tuned for production latency and collections cost.',
-    problem: "EMI reminder calls were manual, expensive, and couldn't scale — every missed callback was lost recovery.",
-    solution: 'Built the full speech loop in-house — Whisper ASR, LLM routing, TTS synthesis, and telephony handoff — cutting every external dependency.',
-    outcome: 'Sub-800ms end-to-end latency. ₹2.6M annual cost reduction. 40% cheaper per call than vendor alternative.',
-    stack: ['Whisper', 'TTS', 'Telephony', 'Python', 'Latency engineering'],
-    filters: ['Voice/Speech', 'Agent Infra'],
-    featured: true,
+      'An in-house speech loop for EMI reminders and customer upselling, spanning ASR, LLM routing, synthesis, and telephony handoff.',
+    impact: ['Sub-800ms end-to-end latency', '₹2.6M lower annual operating cost'],
+    stack: ['Whisper', 'TTS', 'Telephony', 'Python', 'ONNX'],
+    links: [],
+    tone: 'lime',
   },
   {
+    number: '03',
+    category: 'Voice interface',
     name: 'Saarthi',
-    kicker: 'In-page voice guide for websites',
+    headline: 'The page that listens back.',
     description:
-      'An embeddable voice assistant that lets users ask what something on a page means and hear a clear answer without leaving the site.',
-    problem: 'Non-technical users get stuck on unfamiliar controls and dense copy with no in-page way to ask a simple question.',
-    solution: 'Add one script tag: a press-to-record mic sends safe nearby UI context through OpenAI transcription, guidance, and text-to-speech.',
-    outcome: 'Embeddable voice help in English, Hindi, and Hinglish with no phone provider and no continuous screen streaming.',
+      'An embeddable voice guide that can explain, highlight, fill, and click website interfaces while keeping the user in control.',
+    impact: ['English, Hindi, and Hinglish', 'One-script embed with live UI sync'],
     stack: ['Next.js', 'OpenAI Speech', 'TypeScript', 'Vercel'],
-    filters: ['Voice/Speech', 'Agent Infra'],
-    github: 'https://github.com/harsh-raj-singh/saarthi',
-    live: saarthiOrigin,
+    links: [
+      { label: 'GitHub', href: 'https://github.com/harsh-raj-singh/saarthi' },
+      { label: 'Live', href: saarthiOrigin },
+    ],
+    tone: 'violet',
+  },
+]
+
+const experience = [
+  {
+    company: 'Kisetsu Saison Finance',
+    role: 'Data Scientist',
+    dates: '2025 — now',
+    proof: 'ML systems for voice, address intelligence, and KYC across 2M+ customers.',
   },
   {
-    name: 'NextRead',
-    kicker: 'Recommendation loop with user feedback',
-    description: 'An article recommender that learns from reading behavior and ranks a personalized feed.',
-    problem: 'A static Hacker News feed rewards global popularity and cannot adapt to what an individual reader likes, dislikes, rates, or skips.',
-    solution: 'Ingest fresh Hacker News stories on a protected cron, store interactions in Supabase, and rank unseen articles with TF-IDF plus 30% exploration.',
-    outcome: 'A deployed 20-slot personalized feed with authenticated profiles and a trending fallback until the reader has enough history.',
-    stack: ['Next.js', 'Supabase', 'TF-IDF', 'TypeScript', 'Vercel'],
-    filters: ['Distributed Systems'],
-    github: 'https://github.com/harsh-raj-singh/next-read',
-    live: 'https://next-read-theta.vercel.app',
+    company: 'Commerce Robotics, Japan',
+    role: 'AI Development Intern · Meetgram',
+    dates: '2024',
+    proof: 'Duplex transcription architecture supporting 1,200+ concurrent sessions.',
   },
   {
-    name: 'MatExprint',
-    kicker: 'Low-latency product loop',
-    description: 'A 60-second mental math sprint with local-first gameplay and persistent leaderboard writes.',
-    problem: 'A timed math sprint feels laggy if answers wait on network writes, and it should still run when the leaderboard backend is unavailable.',
-    solution: 'Keep question generation, answers, timer, and score local during the 60-second round; send only completed attempts to Supabase.',
-    outcome: 'Instant input response, adaptive difficulty, persisted leaderboard attempts, and an offline fallback when Supabase is unavailable.',
-    stack: ['React', 'Next.js', 'Supabase', 'TypeScript'],
-    filters: ['Distributed Systems'],
-    github: 'https://github.com/harsh-raj-singh/matiks-sprint',
-    live: 'https://matiks-sprint.vercel.app',
+    company: 'AGC Group',
+    role: 'AI Engineer Intern',
+    dates: '2024',
+    proof: 'Document translation with 97% extraction accuracy and 98% layout fidelity.',
+  },
+]
+
+const capabilities = [
+  {
+    icon: Network,
+    title: 'Agent systems',
+    text: 'Orchestration, tool use, context boundaries, and the infrastructure that keeps agents dependable.',
+  },
+  {
+    icon: Mic2,
+    title: 'Voice & speech',
+    text: 'Streaming ASR, low-latency speech loops, multilingual audio, and production telephony.',
+  },
+  {
+    icon: Braces,
+    title: 'Memory infrastructure',
+    text: 'Graph, vector, and relational storage shaped into useful long-term recall for machines.',
   },
 ]
 
 const writing = [
   {
-    title: "Quantization's Hidden Cost: CPU-GPU Bottleneck and Batching Tradeoffs",
-    date: 'LinkedIn note',
-    teaser: 'What profiling Whisper reveals about quantization, CPU-GPU transfer, and batching tradeoffs.',
+    title: "Quantization's hidden cost",
+    topic: 'Whisper · systems',
     url: 'https://www.linkedin.com/posts/ranaharshrajsingh_i-spent-valentines-day-profiling-whisper-activity-7428423682819104768-B2RQ?utm_source=share&utm_medium=member_desktop&rcm=ACoAADj-Q4cBrlCzPYb76OShoTnGE2s7QlWbSJI',
   },
   {
-    title: 'Arcee Trinity Large Technical Report Summary',
-    date: 'LinkedIn note',
-    teaser: 'Notes on Arcee Trinity Large and the system choices behind efficient open model design.',
+    title: 'Inside Arcee Trinity Large',
+    topic: 'Open models · research',
     url: 'https://www.linkedin.com/posts/ranaharshrajsingh_research-paper-3-arcee-trinity-large-technical-activity-7447444356220948480-1e__?utm_source=share&utm_medium=member_desktop&rcm=ACoAADj-Q4cBrlCzPYb76OShoTnGE2s7QlWbSJI',
   },
   {
-    title: 'Transformers for Audio: Speech-Native AI Breakthrough',
-    date: 'LinkedIn note',
-    teaser: 'Why audio-native transformer architectures matter for the next generation of speech systems.',
+    title: 'Why audio-native transformers matter',
+    topic: 'Speech · architecture',
     url: 'https://www.linkedin.com/posts/ranaharshrajsingh_ive-always-wondered-what-happens-if-we-activity-7419790526926888960-zgSj?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAADj-Q4cBrlCzPYb76OShoTnGE2s7QlWbSJI',
   },
 ]
 
-const stackGroups: Array<[string, string[]]> = [
-  ['Infrastructure', ['Neo4j', 'ChromaDB', 'PostgreSQL', 'Redis']],
-  ['Languages', ['Python', 'Go', 'C/C++']],
-  ['AI/ML', ['LangChain', 'Whisper', 'LLM APIs', 'NeMo', 'ONNX']],
-  ['Systems', ['Docker', 'Linux', 'Kafka', 'gRPC']],
-  ['Agent Frameworks', ['LangGraph', 'Custom orchestration', 'MCP']],
-]
-
-function useTypewriter(phrases: string[]) {
-  const [phraseIndex, setPhraseIndex] = useState(0)
-  const [charIndex, setCharIndex] = useState(0)
-  const [deleting, setDeleting] = useState(false)
-
-  useEffect(() => {
-    const phrase = phrases[phraseIndex]
-    const atEnd = charIndex === phrase.length
-    const atStart = charIndex === 0
-    const delay = atEnd && !deleting ? 1500 : deleting ? 34 : 58
-
-    const timer = window.setTimeout(() => {
-      if (atEnd && !deleting) {
-        setDeleting(true)
-        return
-      }
-
-      if (atStart && deleting) {
-        setDeleting(false)
-        setPhraseIndex((index) => (index + 1) % phrases.length)
-        return
-      }
-
-      setCharIndex((index) => index + (deleting ? -1 : 1))
-    }, delay)
-
-    return () => window.clearTimeout(timer)
-  }, [charIndex, deleting, phraseIndex, phrases])
-
-  return phrases[phraseIndex].slice(0, charIndex)
-}
-
 function useRevealOnScroll() {
   useEffect(() => {
-    const elements = Array.from(document.querySelectorAll<HTMLElement>('.reveal'))
+    const elements = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'))
 
     if (!('IntersectionObserver' in window)) {
       elements.forEach((element) => element.classList.add('is-visible'))
@@ -243,13 +156,12 @@ function useRevealOnScroll() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible')
-            observer.unobserve(entry.target)
-          }
+          if (!entry.isIntersecting) return
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
         })
       },
-      { rootMargin: '0px 0px -12% 0px', threshold: 0.12 },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
     )
 
     elements.forEach((element) => observer.observe(element))
@@ -259,9 +171,7 @@ function useRevealOnScroll() {
 
 function SaarthiAgent() {
   useEffect(() => {
-    if (document.querySelector('script[data-saarthi-agent="portfolio"]')) {
-      return
-    }
+    if (document.querySelector('script[data-saarthi-agent="portfolio"]')) return
 
     const script = document.createElement('script')
     script.src = `${saarthiOrigin}/widget.js`
@@ -275,339 +185,224 @@ function SaarthiAgent() {
   return null
 }
 
-function SectionLabel({ index, title }: { index: string; title: string }) {
+function SectionIntro({ eyebrow, title, copy }: { eyebrow: string; title: string; copy?: string }) {
   return (
-    <div className="section-label">
-      <span>{index}</span>
-      <p>{title}</p>
+    <div className="section-intro">
+      <p className="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+      {copy ? <p className="section-copy">{copy}</p> : null}
     </div>
   )
 }
 
-function Tags({ items }: { items: string[] }) {
+function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="tag-row">
-      {items.map((item) => (
-        <span className="tag" key={item}>
-          {item}
-        </span>
-      ))}
-    </div>
-  )
-}
-
-function ProjectLinks({ project }: { project: Project }) {
-  return (
-    <div className="project-links" aria-label={`${project.name} links`}>
-      {project.github ? (
-        <a href={project.github} target="_blank" rel="noreferrer" aria-label={`${project.name} GitHub`}>
-          <GitBranch size={16} aria-hidden="true" />
-          GitHub
-        </a>
-      ) : null}
-      {project.live ? (
-        <a href={project.live} target="_blank" rel="noreferrer" aria-label={`${project.name} live demo`}>
-          <ExternalLink size={16} aria-hidden="true" />
-          Live
-        </a>
-      ) : null}
-      {project.post ? (
-        <a href={project.post} target="_blank" rel="noreferrer" aria-label={`${project.name} LinkedIn post`}>
-          <ExternalLink size={16} aria-hidden="true" />
-          LinkedIn
-        </a>
-      ) : null}
-    </div>
+    <article className={`project-card project-card--${project.tone}`}>
+      <div className="project-meta">
+        <span>{project.number}</span>
+        <span>{project.category}</span>
+      </div>
+      <div className="project-title">
+        <p>{project.name}</p>
+        <h3>{project.headline}</h3>
+      </div>
+      <p className="project-description">{project.description}</p>
+      <ul className="impact-list">
+        {project.impact.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+      <div className="tag-row" aria-label={`${project.name} technology stack`}>
+        {project.stack.map((item) => (
+          <span key={item}>{item}</span>
+        ))}
+      </div>
+      <div className="project-links">
+        {project.links.length ? (
+          project.links.map((link) => (
+            <a href={link.href} key={link.label} target="_blank" rel="noreferrer">
+              {link.label}
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </a>
+          ))
+        ) : (
+          <span>Private production system</span>
+        )}
+      </div>
+    </article>
   )
 }
 
 export default function App() {
-  const [activeFilter, setActiveFilter] = useState(filters[0])
-  const typedHeadline = useTypewriter(heroPhrases)
   useRevealOnScroll()
 
-  const featuredProjects = useMemo(() => projects.filter((project) => project.featured), [])
-  const filteredProjects = useMemo(() => {
-    const remaining = projects.filter((project) => !project.featured)
-    if (activeFilter === 'All') return remaining
-    return remaining.filter((project) => project.filters.includes(activeFilter))
-  }, [activeFilter])
-
   return (
-    <div className="terminal-site">
-      <header className="topbar">
-        <a className="brand-path" href="#hero" aria-label="Go to top">
-          ~/rana-harshraj-singh
-        </a>
-        <nav aria-label="Primary navigation">
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-        </nav>
+    <div className="portfolio-site">
+      <header className="site-header">
+        <div className="shell header-inner">
+          <a className="wordmark" href="#top" aria-label="Rana Harshraj Singh, back to top">
+            <span>RH</span>
+            <strong>Rana Harshraj</strong>
+          </a>
+          <nav aria-label="Primary navigation">
+            <a href="#work">Work</a>
+            <a href="#experience">Experience</a>
+            <a href="#thinking">Thinking</a>
+          </nav>
+          <a className="github-link" href={profile.github} target="_blank" rel="noreferrer">
+            <CodeXml size={18} aria-hidden="true" />
+            GitHub
+            <ArrowUpRight size={14} aria-hidden="true" />
+          </a>
+        </div>
       </header>
 
-      <main>
-        <section className="hero-section" id="hero">
-          <div className="hero-grid">
-            <div className="hero-copy reveal is-visible">
-              <p className="file-label">
-                <Terminal size={15} aria-hidden="true" />
-                {profile.name}
-              </p>
-              <h1 aria-label={heroPhrases.join(' ')}>
-                <span>{typedHeadline}</span>
-                <span className="cursor" aria-hidden="true" />
-              </h1>
-              <p className="hero-desc">
-                AI infrastructure engineer. I build the systems underneath the AI - memory layers,
-                agent orchestration, voice pipelines, and the scaffolding that makes autonomous
-                systems actually work in production.
-              </p>
-              <div className="hero-actions">
-                <a className="button button-primary" href="#projects">
-                  See my work
-                  <ArrowRight size={16} aria-hidden="true" />
-                </a>
-                <a className="button" href="#contact">
-                  Get in touch
-                  <ArrowRight size={16} aria-hidden="true" />
-                </a>
-              </div>
-            </div>
-
-            <aside className="system-card reveal is-visible" aria-label="System status">
-              <div className="status-line">
-                <span className="status-dot" />
-                prod-ready systems
-              </div>
-              <dl>
-                <div>
-                  <dt>focus</dt>
-                  <dd>memory / agents / speech</dd>
-                </div>
-                <div>
-                  <dt>base</dt>
-                  <dd>
-                    <MapPin size={14} aria-hidden="true" />
-                    Bangalore
-                  </dd>
-                </div>
-                <div>
-                  <dt>bias</dt>
-                  <dd>boring infra, sharp interfaces</dd>
-                </div>
-              </dl>
-            </aside>
+      <main id="top">
+        <section className="hero shell">
+          <div className="hero-orbit hero-orbit--one" aria-hidden="true" />
+          <div className="hero-orbit hero-orbit--two" aria-hidden="true" />
+          <div className="availability-pill">
+            <span /> Building AI systems in Bengaluru
           </div>
-
-          <div className="tech-ticker" aria-label="Technology stack">
-            {techTicker.map((item) => (
-              <span key={item}>{item}</span>
-            ))}
+          <p className="hero-kicker">AI everything engineer</p>
+          <h1>
+            I build the systems
+            <span>that make AI useful.</span>
+          </h1>
+          <p className="hero-copy">
+            Memory for agents. Voice pipelines that respond in real time. Infrastructure that stays
+            dependable after the demo ends.
+          </p>
+          <div className="hero-actions">
+            <a className="button button--primary" href="#work">
+              Selected work
+              <ArrowDown size={17} aria-hidden="true" />
+            </a>
+            <a className="button button--ghost" href={profile.github} target="_blank" rel="noreferrer">
+              <CodeXml size={18} aria-hidden="true" />
+              github.com/harsh-raj-singh
+            </a>
+          </div>
+          <div className="proof-grid" aria-label="Selected impact">
+            <div>
+              <strong>2M+</strong>
+              <span>customers served by systems I’ve worked on</span>
+            </div>
+            <div>
+              <strong>&lt;800ms</strong>
+              <span>production voice pipeline latency</span>
+            </div>
+            <div>
+              <strong>Top 5</strong>
+              <span>infrastructure project at SPC</span>
+            </div>
           </div>
         </section>
 
-        <section className="panel-section reveal" id="about">
-          <SectionLabel index="01" title="about / philosophy" />
-          <div className="about-grid">
-            <div className="terminal-panel bio-panel">
-              <p>
-                I'm a builder focused on the infrastructure layer of AI systems - the part that
-                makes agents actually remember, coordinate, and reason reliably. I've built graph
-                memory systems, real-time speech pipelines, and multi-agent orchestration
-                frameworks.
-              </p>
-              <p>
-                Previously at Kisetsu Saison and Commerce Robotics. Recognized by South Park Commons as a
-                top-5 infrastructure team project.
-              </p>
-            </div>
-            <div className="terminal-panel belief-panel">
-              {beliefs.map((belief, index) => (
-                <p key={belief}>
-                  <code>$ {String(index + 1).padStart(2, '0')}</code>
-                  {belief}
-                </p>
+        <section className="section section--work" id="work">
+          <div className="shell" data-reveal>
+            <SectionIntro
+              eyebrow="Selected work · 03"
+              title="A small set of systems with real weight."
+              copy="Three projects that best represent how I think: durable memory, low-latency speech, and interfaces that can act with you."
+            />
+            <div className="project-grid">
+              {projects.map((project) => (
+                <ProjectCard project={project} key={project.name} />
               ))}
             </div>
           </div>
         </section>
 
-        <section className="panel-section reveal" id="experience">
-          <SectionLabel index="02" title="experience" />
-          <div className="timeline">
-            {experience.map((entry) => (
-              <article className="timeline-card" key={entry.company}>
-                <div className="timeline-head">
-                  <div>
-                    <h2>{entry.company}</h2>
-                    <p>{entry.role}</p>
+        <section className="section" id="experience">
+          <div className="shell" data-reveal>
+            <SectionIntro eyebrow="Experience" title="Built close to the problem." />
+            <div className="experience-grid">
+              {experience.map((entry, index) => (
+                <article className="experience-card" key={entry.company}>
+                  <div className="experience-index">0{index + 1}</div>
+                  <p className="experience-date">{entry.dates}</p>
+                  <h3>{entry.company}</h3>
+                  <p className="experience-role">{entry.role}</p>
+                  <p className="experience-proof">{entry.proof}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section section--dark">
+          <div className="shell" data-reveal>
+            <SectionIntro
+              eyebrow="What I’m good at"
+              title="Infrastructure below the intelligence."
+            />
+            <div className="capability-grid">
+              {capabilities.map(({ icon: Icon, title, text }) => (
+                <article key={title}>
+                  <div className="capability-icon">
+                    <Icon size={22} aria-hidden="true" />
                   </div>
-                  <span>{entry.dates}</span>
-                </div>
-                <ul>
-                  {entry.bullets.map((bullet) => (
-                    <li key={bullet}>{bullet}</li>
-                  ))}
-                </ul>
-                <Tags items={entry.stack} />
-              </article>
-            ))}
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className="panel-section reveal" id="projects">
-          <SectionLabel index="03" title="projects" />
-          <div className="section-heading">
-            <h2>Systems that make agents useful.</h2>
-            <p>
-              Memory, orchestration, speech loops, and small production surfaces where state and
-              latency decide whether the system survives.
-            </p>
-          </div>
-
-          <div className="featured-grid">
-            {featuredProjects.map((project) => (
-              <article className="project-card featured-card" key={project.name}>
-                <div className="project-topline">
-                  <p>{project.kicker}</p>
-                  <ProjectLinks project={project} />
-                </div>
-                <h3>{project.name}</h3>
-                <p className="project-desc">{project.description}</p>
-                <div className="chain">
-                  <p>
-                    <span>Problem</span>
-                    {project.problem}
-                  </p>
-                  <p>
-                    <span>Solution</span>
-                    {project.solution}
-                  </p>
-                  <p>
-                    <span>Outcome</span>
-                    {project.outcome}
-                  </p>
-                </div>
-                <Tags items={project.stack} />
-              </article>
-            ))}
-          </div>
-
-          <div className="filter-row" aria-label="Filter projects by tag">
-            {filters.map((filter) => (
-              <button
-                className={filter === activeFilter ? 'is-active' : ''}
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                type="button"
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
-
-          <div className="project-grid">
-            {filteredProjects.map((project) => (
-              <article className="project-card" key={project.name}>
-                <div className="project-topline">
-                  <p>{project.kicker}</p>
-                  <ProjectLinks project={project} />
-                </div>
-                <h3>{project.name}</h3>
-                <p className="project-desc">{project.description}</p>
-                <div className="chain compact">
-                  <p>
-                    <span>Problem</span>
-                    {project.problem}
-                  </p>
-                  <p>
-                    <span>Solution</span>
-                    {project.solution}
-                  </p>
-                  <p>
-                    <span>Outcome</span>
-                    {project.outcome}
-                  </p>
-                </div>
-                <Tags items={project.stack} />
-              </article>
-            ))}
+        <section className="section" id="thinking">
+          <div className="shell" data-reveal>
+            <SectionIntro eyebrow="Notes in public" title="Thinking through the work." />
+            <div className="writing-grid">
+              {writing.map((post, index) => (
+                <a href={post.url} key={post.title} target="_blank" rel="noreferrer">
+                  <span className="writing-index">0{index + 1}</span>
+                  <span className="writing-topic">{post.topic}</span>
+                  <h3>{post.title}</h3>
+                  <span className="writing-cta">
+                    Read on LinkedIn <ArrowUpRight size={15} aria-hidden="true" />
+                  </span>
+                </a>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className="panel-section reveal" id="writing">
-          <SectionLabel index="04" title="writing / thinking" />
-          <div className="section-heading">
-            <h2>What I think about</h2>
-            <p>Occasional writing on agent infrastructure, LLM systems, and distributed design.</p>
-          </div>
-          <div className="writing-grid">
-            {writing.map((post) => (
-              <a className="writing-card" href={post.url} key={post.title} target="_blank" rel="noreferrer">
-                <span>{post.date}</span>
-                <h3>{post.title}</h3>
-                <p>{post.teaser}</p>
-                <strong>Read on LinkedIn {'->'}</strong>
+        <section className="contact-section" id="contact">
+          <div className="shell contact-inner" data-reveal>
+            <div>
+              <p className="eyebrow">Open to ambitious problems</p>
+              <h2>Let’s build what comes after the prototype.</h2>
+            </div>
+            <div className="contact-actions">
+              <a className="button button--light" href={`mailto:${profile.email}`}>
+                <Mail size={18} aria-hidden="true" />
+                Email me
               </a>
-            ))}
-          </div>
-        </section>
-
-        <section className="panel-section reveal" id="stack">
-          <SectionLabel index="05" title="skills / stack" />
-          <div className="section-heading">
-            <h2>What I build with</h2>
-            <p>No progress bars. Just tools that have been near real systems.</p>
-          </div>
-          <div className="stack-grid">
-            {stackGroups.map(([group, items]) => (
-              <div className="stack-card" key={group}>
-                <h3>{group}</h3>
-                <Tags items={items} />
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="contact-section reveal" id="contact">
-          <div className="contact-panel">
-            <p className="file-label">
-              <Network size={15} aria-hidden="true" />
-              contact.sock
-            </p>
-            <h2>Let's build something.</h2>
-            <a className="email-link" href={`mailto:${profile.email}`}>
-              {profile.email}
-            </a>
-            <div className="social-row">
-              <a href={profile.github} target="_blank" rel="noreferrer">
-                <GitBranch size={18} aria-hidden="true" />
+              <a className="button button--outline" href={profile.github} target="_blank" rel="noreferrer">
+                <CodeXml size={18} aria-hidden="true" />
                 GitHub
               </a>
-              <a href={profile.linkedin} target="_blank" rel="noreferrer">
+              <a className="button button--outline" href={profile.linkedin} target="_blank" rel="noreferrer">
                 <Network size={18} aria-hidden="true" />
                 LinkedIn
-              </a>
-              <a href={profile.twitter} target="_blank" rel="noreferrer">
-                <ExternalLink size={18} aria-hidden="true" />
-                Twitter/X
               </a>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="footer">
-        <span>
-          <Cpu size={14} aria-hidden="true" />
-          Built from Bangalore
-        </span>
-        <span>
-          <Mic2 size={14} aria-hidden="true" />
-          memory / agents / speech
-        </span>
+      <footer>
+        <div className="shell footer-inner">
+          <span>
+            <Cpu size={14} aria-hidden="true" /> {profile.name}
+          </span>
+          <span>
+            <MapPin size={14} aria-hidden="true" /> {profile.location}
+          </span>
+          <span>Memory · Agents · Speech</span>
+        </div>
       </footer>
       <SaarthiAgent />
     </div>

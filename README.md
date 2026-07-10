@@ -1,16 +1,14 @@
 # Rana Harshraj Singh / Portfolio
 
-Dark, technical portfolio for Rana Harshraj Singh: AI infrastructure, agent memory, orchestration, speech pipeline work, and an embedded Saarthi voice guide.
+Portfolio for Rana Harshraj Singh: AI infrastructure, agent memory, production speech systems, and an embedded Saarthi voice guide.
 
 Live: https://harsh-portfolio-one-swart.vercel.app
 
 ## Featured Work
 
-- Orange
-- VoiceBots
-- Saarthi
-- NextRead
-- MatExprint
+- Orange — persistent memory for agentic engineering
+- Voice pipeline — sub-800ms production speech automation
+- Saarthi — an embeddable voice guide for websites
 
 ## Local Development
 
